@@ -32,7 +32,6 @@ matrix:
   - php: 7.1
     env: WP_VERSION=latest WP_MULTISITE=0 RUN_CODE_COVERAGE=1
   - php: 7.3
-    env: WP_VERSION=nightly
   allow_failures:
   - env: WP_VERSION=latest WP_MULTISITE=0 RUN_CODE_COVERAGE=1
   - php: 7.3
@@ -48,6 +47,11 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - bash tests/bin/install.sh woocommerce_test root '' localhost $WP_VERSION
   - bash tests/bin/travis.sh before
+  - case "$TRAVIS_PHP_VERSION" in
+      7.3)
+        wp core update https://wordpress.org/wordpress-5.0-beta4.zip
+        ;;
+    esac
 
 script:
   - bash tests/bin/phpunit.sh
