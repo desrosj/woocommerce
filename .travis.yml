@@ -34,6 +34,7 @@ matrix:
   allow_failures:
   - env: WP_VERSION=latest WP_MULTISITE=0 RUN_CODE_COVERAGE=1
   - php: 7.3
+    env: WP_VERSION=nightly
 
 before_script:
   - |
